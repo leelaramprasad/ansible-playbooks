@@ -1,0 +1,25 @@
+---
+- name: Install and Start Apache Tomcat on Ubuntu
+  hosts: 172.31.9.47  # Replace with your server's IP or hostname
+  become: true  # Run tasks with sudo
+
+  tasks:
+    - name: Update apt package cache
+      become: true
+      shell: "apt update -y"
+
+    - name: Install OpenJDK 11
+      become: true
+      shell: "apt install -y openjdk-11-jdk"
+
+    - name: Download Apache Tomcat
+      become: true
+      shell: "wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.17/bin/apache-tomcat-10.1.17.tar.gz -P /opt"
+
+    - name: Extract Tomcat archive
+      become: true
+      shell: "tar -xvzf /opt/apache-tomcat-10.1.17.tar.gz -C /opt"
+
+    - name: Start Tomcat
+      shell: "/opt/apache-tomcat-10.1.17/bin/startup.sh"
+
